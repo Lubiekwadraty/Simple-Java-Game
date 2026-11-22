@@ -26,7 +26,7 @@ public class Main {
     static void main(){
         // SwingUtilities.invokeLater(() -> {
         JFrame jFrame = new JFrame();
-        jFrame.setTitle("Gra");
+        jFrame.setTitle("Game");
         jFrame.setSize(1280, 720);
         jFrame.setDefaultCloseOperation(jFrame.EXIT_ON_CLOSE);
         jFrame.add(jPanel);
@@ -41,19 +41,18 @@ public class Main {
 
     static void Update(){
         if(upPressed){
-            circle.moveTo(circle.x, circle.y - 2);
+            circle.moveTo(circle.x, circle.y - 4);
         }
         if(downPressed){
-            circle.moveTo(circle.x, circle.y + 2);
+            circle.moveTo(circle.x, circle.y + 4);
         }
         if(leftPressed){
-            circle.moveTo(circle.x - 2, circle.y);
+            circle.moveTo(circle.x - 4, circle.y);
         }
         if(rightPressed){
-            circle.moveTo(circle.x + 2, circle.y);
+            circle.moveTo(circle.x + 4, circle.y);
         }
-
-
+        Bounds();
     }
 
     static final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
@@ -136,7 +135,19 @@ public class Main {
             }
         });
     }
+
+    static void Bounds(){
+        int maxX = Math.max(0, circle.getWidth() - 50);
+        int maxY = Math.max(0, circle.getHeight() - 50);
+
+        int boundedX = Math.max(0, Math.min(circle.x, maxX));
+        int boundedY = Math.max(0, Math.min(circle.y, maxY));
+
+        if (boundedX != circle.x || boundedY != circle.y) {
+            circle.moveTo(boundedX, boundedY);
+        }
+    }
 }
-    
+
 
 
